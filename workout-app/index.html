@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0f17">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Workout Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <main class="page">
+    <div class="today-banner" id="todayBanner" hidden>
+      <div class="today-text" id="todayText"></div>
+      <button class="today-btn" id="todayBtn" type="button">Open today's plan</button>
+    </div>
+
+    <header class="hero">
+      <div>
+        <h1 class="hero-title">Mobile-friendly training, nutrition, and form guide</h1>
+      </div>
+      <div class="hero-card">
+        <h3>Quick start</h3>
+        <ul class="quick-list">
+          <li><i class="ti ti-check" aria-hidden="true"></i>Train Monday, Tuesday, Thursday, Saturday</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i>Warm up 5 minutes, cool down 5 minutes</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i>Aim for 7-8 hours of sleep</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i>Protein target: about 2 g per kg bodyweight</li>
+        </ul>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Sessions</div>
+            <div class="stat-value">4 per week</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Exercises</div>
+            <div class="stat-value">21 total</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Meal ideas</div>
+            <div class="stat-value">13 options</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="jump-nav" aria-label="Jump to section">
+      <a href="#plan">Training plan</a>
+      <a href="#nutrition">Nutrition guide</a>
+      <a href="#form">Exercise form</a>
+    </nav>
+
+    <section id="plan" class="section-card plan-section">
+      <div class="section-header">
+        <div class="section-kicker">Plan</div>
+        <h2>4-day muscle-building split</h2>
+        <p>Alternate push, pull, legs, and shoulder days with rest built in. Each session is 45-55 minutes.</p>
+      </div>
+
+      <div class="history-card">
+        <div class="history-header">
+          <div>
+            <div class="history-title">Workout streak</div>
+            <div class="history-sub" id="streakText">0 days</div>
+          </div>
+          <button class="history-btn" type="button" id="markCompleteBtn">Mark workout complete</button>
+        </div>
+        <div class="history-heatmap" id="heatmap"></div>
+        <div class="history-note" id="historyNote">No workouts logged yet.</div>
+      </div>
+
+      <div class="plan-wrap">
+        <div class="week-grid" id="weekGrid"></div>
+        <div class="day-tabs" id="dayTabs"></div>
+        <div id="dayContent"></div>
+      </div>
+    </section>
+
+    <section id="nutrition" class="section-card nutrition-section">
+      <div class="section-header">
+        <div class="section-kicker">Nutrition</div>
+        <h2>Beginner muscle-building nutrition</h2>
+        <p>Calculate daily macros, then choose simple meals and timing guidelines to support growth.</p>
+      </div>
+
+      <div class="wrap">
+        <h2 class="sr-only">Beginner muscle-building nutrition guide with macro calculator, meal ideas, and workout timing</h2>
+
+        <div class="section">
+          <div class="sec-title">Your daily macro targets</div>
+          <div class="slider-row">
+            <label for="wt">Weight</label>
+            <input type="range" id="wt" min="50" max="120" value="75" step="1">
+            <span class="val" id="wt-out">75 kg</span>
+          </div>
+          <div class="goal-row">
+            <div class="goal-label">Goal</div>
+            <div class="goal-toggle" role="group" aria-label="Goal">
+              <button type="button" class="goal-btn" data-goal="0" aria-pressed="true">Lean bulk</button>
+              <button type="button" class="goal-btn" data-goal="1" aria-pressed="false">Aggressive bulk</button>
+            </div>
+          </div>
+
+          <div class="macro-grid" id="macros"></div>
+
+          <div class="tip-box">
+            <i class="ti ti-info-circle" style="font-size:18px;flex-shrink:0;color:var(--color-text-tertiary)" aria-hidden="true"></i>
+            <span id="tip-text"></span>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section">
+          <div class="sec-title">Easy high-protein meal ideas</div>
+          <div class="meal-grid">
+            <div class="meal-card tone-green">
+              <div class="meal-header">
+                <div class="meal-icon"><i class="ti ti-egg" aria-hidden="true"></i></div>
+                <div>
+                  <div class="meal-name">Breakfast</div>
+                  <div class="meal-prot">~35 g protein</div>
+                </div>
+              </div>
+              <ul class="meal-items">
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>4 whole eggs scrambled + 1 cup oats with milk</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Greek yogurt + banana + handful of almonds</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Protein smoothie: milk + whey + oats + peanut butter</li>
+              </ul>
+            </div>
+
+            <div class="meal-card tone-blue">
+              <div class="meal-header">
+                <div class="meal-icon"><i class="ti ti-bowl" aria-hidden="true"></i></div>
+                <div>
+                  <div class="meal-name">Lunch</div>
+                  <div class="meal-prot">~40 g protein</div>
+                </div>
+              </div>
+              <ul class="meal-items">
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>200 g chicken breast + rice + vegetables</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Tuna or sardines + whole wheat bread + salad</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Lentil soup + 2 boiled eggs + wholegrain bread</li>
+              </ul>
+            </div>
+
+            <div class="meal-card tone-purple">
+              <div class="meal-header">
+                <div class="meal-icon"><i class="ti ti-meat" aria-hidden="true"></i></div>
+                <div>
+                  <div class="meal-name">Dinner</div>
+                  <div class="meal-prot">~45 g protein</div>
+                </div>
+              </div>
+              <ul class="meal-items">
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>200 g beef or salmon + sweet potato + broccoli</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Turkey mince + pasta + tomato sauce + cheese</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Grilled fish + quinoa + roasted vegetables</li>
+              </ul>
+            </div>
+
+            <div class="meal-card tone-amber">
+              <div class="meal-header">
+                <div class="meal-icon"><i class="ti ti-apple" aria-hidden="true"></i></div>
+                <div>
+                  <div class="meal-name">Snacks</div>
+                  <div class="meal-prot">~20 g protein</div>
+                </div>
+              </div>
+              <ul class="meal-items">
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Cottage cheese + fruit</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Whey protein shake + milk</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Hard-boiled eggs + a piece of fruit</li>
+                <li><i class="ti ti-point-filled" aria-hidden="true"></i>Peanut butter on rice cakes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section">
+          <div class="sec-title">What to eat around your workout</div>
+          <div class="timing-row">
+            <div class="timing-card tone-green">
+              <div class="timing-title"><i class="ti ti-clock" style="font-size:16px;margin-right:6px;vertical-align:-2px" aria-hidden="true"></i>Pre-workout</div>
+              <div class="timing-sub">1-2 hours before</div>
+              <div class="timing-items">
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Carbs for energy + moderate protein</div>
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Oats + milk + banana</div>
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Rice + chicken (if eating 2 hours before)</div>
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Yogurt + fruit (30 minutes before, light)</div>
+                <div class="timing-item"><i class="ti ti-x" style="font-size:15px;flex-shrink:0;margin-top:1px;color:#ff8a6a" aria-hidden="true"></i>Avoid high fat or very heavy meals - slows digestion</div>
+              </div>
+            </div>
+            <div class="timing-card tone-purple">
+              <div class="timing-title"><i class="ti ti-bolt" style="font-size:16px;margin-right:6px;vertical-align:-2px" aria-hidden="true"></i>Post-workout</div>
+              <div class="timing-sub">Within 1-2 hours after</div>
+              <div class="timing-items">
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Protein to repair muscle + carbs to refuel</div>
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Whey protein shake + banana (fast)</div>
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Chicken + rice + vegetables (full meal)</div>
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Greek yogurt + oats + honey</div>
+                <div class="timing-item"><i class="ti ti-check" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--tone-text)" aria-hidden="true"></i>Aim for 30-40 g protein in this window</div>
+              </div>
+            </div>
+          </div>
+          <div class="tip-box" style="margin-top:12px">
+            <i class="ti ti-droplet" style="font-size:18px;flex-shrink:0;color:var(--color-text-tertiary)" aria-hidden="true"></i>
+            <span>Hydration matters too - drink at least 2-3 litres of water daily, and add an extra 500 ml for every hour of training. Dehydration directly reduces strength output.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="form" class="section-card form-section">
+      <div class="section-header">
+        <div class="section-kicker">Technique</div>
+        <h2>Exercise form guide</h2>
+        <p>Search by movement or muscle group, then expand each exercise for step-by-step form cues and common mistakes.</p>
+      </div>
+
+      <div class="wrap">
+        <h2 class="sr-only">Exercise form guide for all 21 exercises in the 4-day beginner muscle-building plan</h2>
+
+        <div class="top-bar">
+          <div class="search-wrap"><input type="search" id="q" placeholder="Search exercises..."></div>
+          <div class="filter-row">
+            <button class="filter-btn" data-filter="all" type="button">All days</button>
+            <button class="filter-btn" data-filter="0" type="button">Day 1</button>
+            <button class="filter-btn" data-filter="1" type="button">Day 2</button>
+            <button class="filter-btn" data-filter="2" type="button">Day 3</button>
+            <button class="filter-btn" data-filter="3" type="button">Day 4</button>
+          </div>
+        </div>
+
+        <div class="ex-list" id="list"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="rest-timer" id="restTimer">
+    <div>
+      <div class="section-kicker">Rest timer</div>
+      <div class="rest-time" id="restTime">01:00</div>
+    </div>
+    <div class="rest-actions">
+      <button class="timer-btn" type="button" id="restStopBtn">Stop</button>
+      <button class="timer-btn" type="button" id="restAddBtn">+15s</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

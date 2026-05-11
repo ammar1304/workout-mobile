@@ -1,0 +1,76 @@
+:root {
+  color-scheme: dark;
+  --font-title: "Space Grotesk", "Sora", sans-serif;
+  --font-body: "Sora", "Space Grotesk", sans-serif;
+  --bg: #0a0f17;
+  --bg-2: #0d1422;
+  --panel: #111a2b;
+  --panel-2: #0f1627;
+  --border: #1f2c44;
+  --border-soft: #22314c;
+  --text: #e8eef7;
+  --text-muted: #9aa7b4;
+  --text-faint: #6f7c8d;
+  --accent-1: #7c5cff;
+  --accent-2: #2ec98c;
+  --accent-3: #f28b39;
+  --accent-4: #4fb1ff;
+  --danger-bg: rgba(255, 99, 71, 0.12);
+  --danger-text: #ff8a6a;
+  --success-bg: rgba(46, 201, 140, 0.12);
+  --success-text: #97f0c7;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --color-background-primary: var(--panel);
+  --color-background-secondary: var(--panel-2);
+  --color-border-tertiary: var(--border);
+  --color-border-secondary: var(--border-soft);
+  --color-text-primary: var(--text);
+  --color-text-secondary: var(--text-muted);
+  --color-text-tertiary: var(--text-faint);
+  --color-background-danger: var(--danger-bg);
+  --color-text-danger: var(--danger-text);
+  --color-background-success: var(--success-bg);
+  --color-text-success: var(--success-text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(700px 360px at 12% 0%, rgba(124, 92, 255, 0.18), transparent 60%),
+    radial-gradient(620px 460px at 85% 90%, rgba(79, 177, 255, 0.16), transparent 55%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
