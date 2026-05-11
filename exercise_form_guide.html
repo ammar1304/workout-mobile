@@ -1,0 +1,223 @@
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css");
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0;font-family:var(--font-sans)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.top-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+.filter-btn{padding:6px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);font-size:13px;cursor:pointer;transition:all 0.15s}
+.filter-btn.on{border-color:transparent;color:#fff;font-weight:500}
+.search-wrap{flex:1;min-width:160px}
+input[type=search]{width:100%;height:34px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);padding:0 10px;font-size:13px}
+.ex-list{display:flex;flex-direction:column;gap:10px}
+.ex-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.ex-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
+.ex-icon{width:36px;height:36px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.ex-meta{flex:1}
+.ex-name{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+.ex-sub{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.chevron{font-size:16px;color:var(--color-text-tertiary);transition:transform 0.2s}
+.chevron.open{transform:rotate(180deg)}
+.ex-body{border-top:0.5px solid var(--color-border-tertiary);padding:16px}
+.section-label{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:8px}
+.muscles-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.muscle-pill{font-size:12px;padding:3px 10px;border-radius:20px;font-weight:500}
+.steps{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--color-text-primary);line-height:1.55}
+.mistakes{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.mistake{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:var(--border-radius-md);background:var(--color-background-danger);font-size:13px;color:var(--color-text-danger)}
+.weight-box{padding:10px 12px;border-radius:var(--border-radius-md);background:var(--color-background-success);display:flex;gap:10px;align-items:flex-start}
+.weight-text{font-size:13px;color:var(--color-text-success);line-height:1.5}
+.day-colors=[{bg:"#EEEDFE",txt:"#3C3489",icoBg:"#CECBF6"},{bg:"#E1F5EE",txt:"#085041",icoBg:"#9FE1CB"},{bg:"#FAECE7",txt:"#712B13",icoBg:"#F5C4B3"},{bg:"#E6F1FB",txt:"#0C447C",icoBg:"#B5D4F4"}]
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Exercise form guide for all 21 exercises in the 4-day beginner muscle-building plan</h2>
+
+<div class="top-bar">
+  <div class="search-wrap"><input type="search" id="q" placeholder="Search exercises…" oninput="render()"></div>
+  <button class="filter-btn" data-f="all" onclick="setF('all')">All days</button>
+  <button class="filter-btn" data-f="0" onclick="setF('0')">Day 1</button>
+  <button class="filter-btn" data-f="1" onclick="setF('1')">Day 2</button>
+  <button class="filter-btn" data-f="2" onclick="setF('2')">Day 3</button>
+  <button class="filter-btn" data-f="3" onclick="setF('3')">Day 4</button>
+</div>
+
+<div class="ex-list" id="list"></div>
+</div>
+
+<script>
+const DC=[
+  {bg:"#EEEDFE",txt:"#3C3489",icoBg:"#CECBF6",accent:"#534AB7",label:"Day 1 · Chest & Triceps"},
+  {bg:"#E1F5EE",txt:"#085041",icoBg:"#9FE1CB",accent:"#0F6E56",label:"Day 2 · Back & Biceps"},
+  {bg:"#FAECE7",txt:"#712B13",icoBg:"#F5C4B3",accent:"#993C1D",label:"Day 3 · Legs"},
+  {bg:"#E6F1FB",txt:"#0C447C",icoBg:"#B5D4F4",accent:"#185FA5",label:"Day 4 · Shoulders & Abs"}
+];
+
+const EX=[
+  {day:0,icon:"ti-barbell",name:"Barbell bench press",muscles:["Pectorals (main)","Front deltoids","Triceps"],
+   steps:["Lie flat on the bench, eyes directly under the bar. Plant your feet flat on the floor.","Grip the bar just outside shoulder width. Retract your shoulder blades — think 'chest up, shoulders back and down' — and maintain this throughout.","Unrack the bar and hold it over your lower chest.","Inhale and lower the bar in a slight arc to your lower chest (nipple line). Keep elbows at roughly 45–75° from your torso, not flared to 90°.","When the bar touches your chest, press explosively upward and slightly back toward the rack. Exhale as you push.","Lock out your elbows at the top, then repeat."],
+   mistakes:["Flaring elbows to 90° — puts extreme stress on the shoulder joint.","Bouncing the bar off your chest — removes tension, risks injury.","Lifting your hips or feet off the bench — reduces stability and power transfer.","Holding your breath for multiple reps — exhale on the push."],
+   weight:"Men: start with the empty bar (20 kg) and learn the movement first. Add 5 kg per side once form is solid. Women: start with 10–15 kg total and progress from there."},
+
+  {day:0,icon:"ti-arrow-up",name:"Incline dumbbell press",muscles:["Upper pectorals","Front deltoids","Triceps"],
+   steps:["Set the bench to 30–45°. Sit with dumbbells on your thighs, then kick them up as you lie back.","Hold dumbbells at chest level with a neutral or pronated grip, elbows at ~60° from your torso.","Press the dumbbells up and slightly inward until they nearly touch above your upper chest.","Lower slowly (2 seconds) back to the start position, feeling the stretch in your chest.","Keep your lower back lightly in contact with the bench — avoid excessive arch."],
+   mistakes:["Setting the bench too high (above 45°) — shifts work to delts, not upper chest.","Letting dumbbells drift too far apart at the bottom — stresses the shoulder joint.","Losing shoulder-blade retraction mid-set."],
+   weight:"Men: 8–12 kg per dumbbell to start. Women: 4–8 kg per dumbbell. Go lighter than you think — the angle is harder than flat bench."},
+
+  {day:0,icon:"ti-arrows-horizontal",name:"Cable chest fly",muscles:["Pectorals (stretch emphasis)","Front deltoids"],
+   steps:["Set both cable pulleys to chest height. Stand in the center, feet staggered for stability.","Grab a handle in each hand, palms facing each other. Step forward slightly so cables are taut.","With a slight bend in your elbows (locked throughout), bring your hands together in a wide arc as if hugging a large tree. Squeeze your chest hard at the center.","Slowly return to the start, feeling a deep stretch across your chest. Don't let elbows go behind your torso."],
+   mistakes:["Bending the elbows to help push — turns it into a press, not a fly.","Using momentum to swing the weight — slow, controlled movement only.","Going so heavy that you can't feel the chest working."],
+   weight:"Men: 5–8 kg per side. Women: 3–5 kg per side. This is an isolation move — keep it light and feel every rep."},
+
+  {day:0,icon:"ti-arrow-down",name:"Tricep rope pushdown",muscles:["Triceps (all three heads)"],
+   steps:["Attach a rope to a high cable pulley. Stand facing the machine, feet hip-width apart.","Grip the rope with both hands, palms facing each other. Pull elbows to your sides — they stay glued there for the entire set.","Push the rope down, spreading it apart at the bottom (hands go outward slightly) to fully contract the triceps.","Slowly return to the start — forearms should reach roughly parallel to the floor, feeling a stretch in the tricep."],
+   mistakes:["Letting your elbows drift forward as you push — uses front delts, not triceps.","Using bodyweight to push the rope down instead of just the arm.","Not spreading the rope at the bottom — shortchanges the contraction."],
+   weight:"Men: 10–15 kg. Women: 5–10 kg. You should feel a strong burn by rep 12."},
+
+  {day:0,icon:"ti-triangle",name:"Overhead dumbbell extension",muscles:["Triceps long head (main)","Medial and lateral heads"],
+   steps:["Sit on a bench with back support. Hold one dumbbell with both hands, overlapping your fingers under the top plate.","Raise the dumbbell overhead with arms fully extended.","Keeping your upper arms vertical and elbows pointing forward, lower the dumbbell behind your head until you feel a deep stretch in your triceps.","Press back up to full extension. Don't let your elbows flare out wide."],
+   mistakes:["Elbows flaring out to the sides — shortens the range and strains elbows.","Moving the upper arms — only your forearms should move.","Using too much weight, which causes the lower back to arch excessively."],
+   weight:"Men: 10–16 kg dumbbell. Women: 6–10 kg. The long head needs a full stretch — don't cut the range short."},
+
+  {day:1,icon:"ti-barbell",name:"Barbell bent-over row",muscles:["Latissimus dorsi","Rhomboids","Traps","Rear deltoids","Biceps (secondary)"],
+   steps:["Stand with feet hip-width. Hinge at the hips until your torso is roughly 45° to the floor (or more horizontal for heavier rows). Keep a neutral spine — no rounding.","Grip the bar just outside shoulder width, overhand grip. Let the bar hang at arm's length.","Inhale, then pull the bar to your lower chest/upper abdomen, driving your elbows back and up. Squeeze your shoulder blades together at the top.","Lower the bar in a controlled way. Don't just let it drop.","Keep your core braced and back flat throughout — if your lower back rounds, reduce the weight."],
+   mistakes:["Rounding the lower back — the most common and dangerous mistake; use less weight.","Standing too upright — becomes more of a shrug than a row.","Letting momentum carry the bar — control every inch.","Pulling to the neck instead of the lower chest."],
+   weight:"Men: 40–60 kg to start. Women: 20–30 kg. Master the hip hinge with lighter weight first."},
+
+  {day:1,icon:"ti-arrow-down",name:"Lat pulldown",muscles:["Latissimus dorsi (main)","Teres major","Biceps","Rear deltoids"],
+   steps:["Sit at the pulldown machine. Adjust the knee pad to secure your legs.","Grip the bar wider than shoulder width, palms facing away. Lean back slightly (about 10–15°).","Pull the bar down to your collarbone, driving your elbows down and back. Think 'elbows to your back pockets'.","Squeeze your lats at the bottom, then slowly let the bar rise back up with full arm extension. Feel the stretch at the top."],
+   mistakes:["Pulling behind the neck — puts dangerous stress on the cervical spine. Always pull to the front.","Leaning back too far — turns it into a pullover, not a lat pulldown.","Shrugging your shoulders up as the bar returns — keep them down throughout."],
+   weight:"Men: 40–55 kg. Women: 20–30 kg. You should just barely complete 12 clean reps."},
+
+  {day:1,icon:"ti-arrow-left",name:"Seated cable row",muscles:["Rhomboids","Traps","Lats","Rear deltoids","Biceps"],
+   steps:["Sit upright at the cable row station with feet on the platform, knees slightly bent. Hold the handle with both hands.","Start with arms extended and a slight forward lean. Then drive your chest tall and sit upright as you begin pulling.","Pull the handle to your lower chest/upper abdomen, driving elbows back. Pinch your shoulder blades together hard at the end.","Slowly return to the start with a slight controlled forward lean — feel the stretch in your mid-back."],
+   mistakes:["Rounding the back and using momentum to heave the weight — use less weight.","Pulling with your arms instead of leading with your elbows.","Not reaching forward at the start — you lose the stretch and shorten the range of motion."],
+   weight:"Men: 40–55 kg. Women: 20–30 kg. Focus on feeling your mid-back, not just your arms."},
+
+  {day:1,icon:"ti-arrows-up",name:"Face pulls",muscles:["Rear deltoids","Rotator cuff","Traps","Rhomboids"],
+   steps:["Attach a rope to a cable set at face height (or slightly above). Grab both ends with an overhand grip, thumbs pointing back.","Step back until your arms are almost straight. Stand tall with a slight lean back.","Pull the rope toward your face, separating the hands as they near your ears. At the end, your upper arms should be parallel to the floor and hands beside your ears — externally rotate your shoulders so thumbs point behind you.","Return slowly. This is a posture/shoulder-health exercise — feel it in the back of your shoulders, not your traps."],
+   mistakes:["Pulling too low — toward the chin or chest — misses the rear delt entirely.","Using too much weight, causing the traps to take over.","Rushing the reps — the external rotation at the end is the whole point."],
+   weight:"Men: 10–15 kg. Women: 5–10 kg. This is a health movement — light weight, high reps, perfect form."},
+
+  {day:1,icon:"ti-arm",name:"Barbell or dumbbell curl",muscles:["Biceps brachii (main)","Brachialis","Brachioradialis"],
+   steps:["Stand with feet hip-width, holding a barbell (or dumbbells) at arm's length, palms facing forward.","Without moving your upper arms, curl the weight up toward your shoulders. Your elbows stay at your sides.","Squeeze at the top, then lower the weight slowly over 2–3 seconds — the slow lowering (eccentric) is key for muscle growth.","Do not swing your torso back to heave the weight up."],
+   mistakes:["Swinging the back to momentum the bar up — reduces bicep work, risks lower back strain.","Letting elbows drift forward at the top — locks out the tension. Keep elbows slightly behind the torso at peak.","Dropping the weight too fast on the way down — you're throwing away 50% of the benefit."],
+   weight:"Barbell: Men 20–30 kg, Women 10–15 kg. Dumbbells: Men 8–12 kg each, Women 4–8 kg each."},
+
+  {day:2,icon:"ti-barbell",name:"Barbell back squat",muscles:["Quadriceps (main)","Glutes","Hamstrings","Core (stabilizer)","Lower back (stabilizer)"],
+   steps:["Step under a barbell racked at upper-chest height. Place it across your upper traps (not on your neck). Grip it outside your shoulders for stability.","Step back with two steps, feet shoulder-width apart, toes pointed out 15–30°.","Take a deep breath and brace your core hard (as if about to be punched). Begin the descent.","Push your knees out in line with your toes, sit your hips back and down simultaneously until your thighs are at least parallel to the floor.","Drive through your whole foot (especially the heel) to stand back up. Exhale as you rise."],
+   mistakes:["Knees caving inward (valgus collapse) — push knees out actively.","Heels rising off the floor — indicates ankle mobility issue; try elevating heels on plates.","Only going halfway down — partial reps build partial results; aim for parallel or below.","Looking down — keep your gaze slightly up to maintain a neutral spine."],
+   weight:"Men: start with the empty bar (20 kg) or 40–60 kg once comfortable. Women: 20–40 kg. Master depth and bracing before adding weight."},
+
+  {day:2,icon:"ti-arrow-down",name:"Romanian deadlift",muscles:["Hamstrings (main)","Glutes","Lower back (erectors)"],
+   steps:["Stand with feet hip-width, bar or dumbbells in front of your thighs, overhand grip.","With a slight bend in your knees (fixed — they don't move much), hinge at the hips and push them back.","Lower the weight along the front of your legs, keeping the bar close to your body. You should feel a deep stretch in your hamstrings — stop when your back is about parallel to the floor or when you can no longer maintain a neutral spine.","Drive your hips forward to return to standing, squeezing your glutes at the top. Don't hyperextend your lower back."],
+   mistakes:["Rounding the lower back — the most critical error; hinge from the hips with a flat back.","Bending the knees too much — turns it into a regular deadlift. Keep a soft, consistent knee bend.","Letting the bar drift away from your body — keep it sliding close to your shins/thighs."],
+   weight:"Men: 40–60 kg. Women: 20–35 kg. Less weight than a squat — the hamstring stretch is the cue, not the load."},
+
+  {day:2,icon:"ti-device-gamepad",name:"Leg press",muscles:["Quadriceps (main)","Glutes","Hamstrings (secondary)"],
+   steps:["Sit in the leg press machine with your back and head against the pad. Place feet shoulder-width on the platform — higher placement emphasizes glutes/hams, lower = more quads.","Release the safety handles. Lower the platform by bending your knees until they reach about 90° (no deeper if lower back lifts off the pad).","Press back up through your whole foot to nearly full extension. Don't lock out your knees — keep a very slight bend.","Re-engage the safety handles to rack."],
+   mistakes:["Letting your lower back peel off the seat at the bottom — this loads your spine dangerously; raise the foot platform.","Locking out the knees explosively — can damage the joint over time.","Placing feet too low and narrow, which overloads the knees."],
+   weight:"Men: 60–100 kg. Women: 30–60 kg. This machine allows heavier loads — but only as much as you can control."},
+
+  {day:2,icon:"ti-wave-sine",name:"Leg curl (seated or lying)",muscles:["Hamstrings (main)","Gastrocnemius (secondary)"],
+   steps:["Adjust the machine so your knees align with the machine's pivot point. Lie face down (lying) or sit (seated) with the pad just above your heels.","Starting from a straight leg position, curl your heels toward your glutes as far as you can.","Squeeze the hamstrings hard at the peak contraction.","Lower the weight slowly — take at least 2 seconds on the way down. Don't let it drop."],
+   mistakes:["Letting hips rise (lying version) to heave the weight — isolate the hamstring by keeping your hips down.","Rushing the negative — slow lowering is where most growth happens.","Using so much weight that you can't fully flex — reduce and feel the muscle work."],
+   weight:"Men: 20–35 kg. Women: 10–20 kg. You should feel a deep hamstring burn by rep 12."},
+
+  {day:2,icon:"ti-arrow-up",name:"Standing calf raise",muscles:["Gastrocnemius (main)","Soleus"],
+   steps:["Stand with the balls of your feet on the edge of a step or calf raise platform. Hold a dumbbell in each hand (or use the machine).","Lower your heels as far below the step as possible — a full, deep stretch.","Rise up on the balls of your feet as high as you can, pausing at the top for one full second.","Lower slowly back to the deep stretch. Every rep should have full range of motion."],
+   mistakes:["Partial reps — only going halfway up or not lowering heels below the step.","Bouncing at the bottom — removes the stretch benefit and risks the Achilles tendon.","Going too heavy and losing the pause at the top."],
+   weight:"Men: 12–20 kg per hand. Women: 6–12 kg per hand. Calves respond to volume — 15–20 reps with full range beats heavy partial reps."},
+
+  {day:3,icon:"ti-barbell",name:"Seated dumbbell shoulder press",muscles:["Anterior deltoids (main)","Medial deltoids","Triceps","Upper traps"],
+   steps:["Sit on a bench with back support set vertically (90°). Hold dumbbells at shoulder height, palms facing forward, elbows at about 90°.","Press the dumbbells straight overhead until your arms are almost fully extended. Don't let them touch at the top.","Lower slowly back to the start — upper arms parallel to the floor. Keep your core braced and lower back neutral against the bench."],
+   mistakes:["Arching your lower back excessively to press more weight — reduces the load or use a lighter dumbbell.","Pressing the dumbbells forward instead of straight up — a sign of front-delt dominance; cue yourself to press directly overhead.","Flaring elbows too far forward at the start position."],
+   weight:"Men: 10–16 kg per dumbbell. Women: 5–10 kg. Shoulders are a smaller muscle group than you might expect — don't ego lift."},
+
+  {day:3,icon:"ti-arrows-horizontal",name:"Dumbbell lateral raise",muscles:["Medial deltoids (main)","Supraspinatus"],
+   steps:["Stand with feet hip-width, a dumbbell in each hand by your sides. Hinge forward very slightly at the hip (this better targets the medial delt).","With elbows very slightly bent (soft, not flexed), raise your arms out to the sides until they're parallel to the floor. Lead with your elbows, not your hands.","Lower slowly — take at least 2 seconds on the way down. Don't let gravity drop the weight."],
+   mistakes:["Swinging the body to heave the weight up — use lighter dumbbells with strict form.","Raising arms too high (above parallel) — engages traps instead of medial delts.","Pouring water — turning your thumbs down — actually reduces medial delt activation; keep wrists neutral or thumbs slightly up."],
+   weight:"Men: 6–10 kg. Women: 3–6 kg. This is probably lighter than you think — most beginners start too heavy and use momentum."},
+
+  {day:3,icon:"ti-arrow-up",name:"Dumbbell front raise",muscles:["Anterior deltoids (main)","Upper pectorals (secondary)"],
+   steps:["Stand holding dumbbells in front of your thighs, palms facing you.","With a slight elbow bend, raise one dumbbell forward to shoulder height. Keep it in a smooth arc — don't jerk.","Lower it back under control and raise the other arm (alternating keeps it strict).","Stop at shoulder height — going higher brings the traps in."],
+   mistakes:["Raising both dumbbells at once — increases the load on your lower back.","Using momentum/swinging — defeats the purpose entirely.","Going above shoulder height consistently."],
+   weight:"Men: 6–10 kg. Women: 3–6 kg. Alternate arms for better control. Strict form only."},
+
+  {day:3,icon:"ti-wave-sine",name:"Cable lateral raise",muscles:["Medial deltoids","Supraspinatus"],
+   steps:["Set a cable pulley to its lowest position. Stand sideways to the machine, the cable crossing in front of your body. Grip the handle with the far hand (the one away from the machine).","Keeping a slight elbow bend and upright posture, raise your arm out to the side to shoulder height.","The cable provides constant tension throughout the movement — unlike dumbbells, the hardest point isn't just at the top.","Lower slowly. Complete all reps on one side, then switch."],
+   mistakes:["Standing too close to the machine — the cable angle reduces tension.","Letting the weight pull your arm too far down on the return, losing control.","Leaning away from the machine to cheat the weight up."],
+   weight:"Men: 5–8 kg. Women: 3–5 kg. Lighter than dumbbell raises — the constant tension makes it harder at the bottom."},
+
+  {day:3,icon:"ti-minus",name:"Plank",muscles:["Transverse abdominis","Rectus abdominis","Obliques","Glutes","Shoulder stabilizers"],
+   steps:["Place your forearms on the floor, elbows directly under your shoulders. Extend your legs behind you, on your toes.","Squeeze your glutes, brace your abs (like you're about to be punched), and keep your body in a perfectly straight line from head to heel.","Don't let your hips sag toward the floor or pike up toward the ceiling.","Breathe normally — don't hold your breath. Keep your neck neutral (look at the floor just ahead of your hands)."],
+   mistakes:["Sagging hips — the most common error; squeeze glutes hard to prevent this.","Holding your breath — you should be able to breathe throughout.","Craning your neck up or letting your head drop.","Shaking or trembling means you're close to failure — maintain form until you have to stop, don't collapse into bad position."],
+   weight:"Bodyweight only. Start with 20–30 second holds and build to 60+ seconds over weeks."},
+
+  {day:3,icon:"ti-arrow-down",name:"Cable crunch",muscles:["Rectus abdominis (main)","Obliques"],
+   steps:["Attach a rope to a high cable pulley. Kneel in front of the machine, holding the rope behind your head with both hands.","Start with your torso upright. Crunch downward, driving your elbows toward your knees and rounding your spine — think of pulling your ribs down to your hips, not just bowing forward.","Pause at the bottom and squeeze your abs hard.","Return to the upright start position with control — don't just let the cable pull you back."],
+   mistakes:["Pulling down with your arms/shoulders instead of crunching with your abs.","Sitting back on your heels as you descend — should be a spinal flexion, not a hip hinge.","Going too heavy — if you can't feel your abs working, the weight is too high."],
+   weight:"Men: 10–20 kg. Women: 5–12 kg. You should feel this purely in your abs, not your neck or shoulders."}
+];
+
+let currentFilter='all', openIdx=new Set();
+
+function setF(f){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>{
+    const on=b.dataset.f===f;
+    b.classList.toggle('on',on);
+    if(on){b.style.background=on&&f!=='all'?DC[+f].accent:'#444441';b.style.color='#fff'}
+    else{b.style.background='';b.style.color=''}
+  });
+  render();
+}
+
+function toggle(i){
+  openIdx.has(i)?openIdx.delete(i):openIdx.add(i);
+  render();
+}
+
+function render(){
+  const q=document.getElementById('q').value.toLowerCase();
+  const filtered=EX.map((e,i)=>({...e,i})).filter(e=>{
+    if(currentFilter!=='all'&&e.day!==+currentFilter)return false;
+    if(q&&!e.name.toLowerCase().includes(q)&&!e.muscles.join(' ').toLowerCase().includes(q))return false;
+    return true;
+  });
+
+  document.getElementById('list').innerHTML=filtered.map(e=>{
+    const c=DC[e.day];
+    const open=openIdx.has(e.i);
+    const pillsHtml=e.muscles.map(m=>`<span class="muscle-pill" style="background:${c.bg};color:${c.txt}">${m}</span>`).join('');
+    const stepsHtml=e.steps.map((s,n)=>`<div class="step"><div class="step-num" style="background:${c.bg};color:${c.txt}">${n+1}</div><div class="step-text">${s}</div></div>`).join('');
+    const mistakesHtml=e.mistakes.map(m=>`<div class="mistake"><i class="ti ti-alert-triangle" style="font-size:16px;flex-shrink:0;margin-top:1px" aria-hidden="true"></i><span>${m}</span></div>`).join('');
+    const body=open?`<div class="ex-body">
+      <div class="section-label">Muscles worked</div>
+      <div class="muscles-row">${pillsHtml}</div>
+      <div class="section-label">Step-by-step form</div>
+      <div class="steps">${stepsHtml}</div>
+      <div class="section-label">Common mistakes to avoid</div>
+      <div class="mistakes">${mistakesHtml}</div>
+      <div class="section-label">Starting weight guideline</div>
+      <div class="weight-box"><i class="ti ti-barbell" style="font-size:18px;flex-shrink:0;margin-top:1px" aria-hidden="true"></i><div class="weight-text">${e.weight}</div></div>
+    </div>`:'';
+    return `<div class="ex-card">
+      <div class="ex-header" onclick="toggle(${e.i})" role="button" aria-expanded="${open}">
+        <div class="ex-icon" style="background:${c.icoBg}"><i class="ti ${e.icon}" style="color:${c.txt}" aria-hidden="true"></i></div>
+        <div class="ex-meta">
+          <div class="ex-name">${e.name}</div>
+          <div class="ex-sub">${c.label}</div>
+        </div>
+        <i class="ti ti-chevron-down chevron${open?' open':''}" aria-hidden="true"></i>
+      </div>${body}
+    </div>`;
+  }).join('');
+}
+
+setF('all');
+render();
+</script>
